@@ -20,7 +20,7 @@ public class AuthController {
 
 private final Authservice authservice;
 
- @PostMapping("/signup")
+ @PostMapping("signup")
  public ResponseEntity<Authresponse> createUser(@RequestBody  @Validated  Register register){
     return new ResponseEntity<Authresponse>(authservice.createUser(register), HttpStatus.CREATED);
  }   
