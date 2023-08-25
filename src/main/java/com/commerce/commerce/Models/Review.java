@@ -7,17 +7,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.*;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-@Document(collection="subcategory")
-public class Subcategory {
-     @Id
+@Getter
+@Setter
+@Document(collection = "category")
+public class Review {
+    @Id
     private String id;
-    private String name;
-    private String category;
+    private String message;
+    private String productId;
+    private double rating;
+    private String reviewer;
     private Date createdAt;
     private Date updatedAt;
+
 }
