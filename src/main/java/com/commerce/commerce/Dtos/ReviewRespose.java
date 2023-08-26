@@ -1,6 +1,9 @@
 package com.commerce.commerce.Dtos;
 
 import java.util.Date;
+
+import com.commerce.commerce.Models.UserModel;
+
 import lombok.*;
 @Data
 @AllArgsConstructor
@@ -11,7 +14,7 @@ public class ReviewRespose {
     private String message;
     private String productId;
     private double rating;
-    private String reviewer;
+    private UserModel reviewer;
     private Date createdAt;
     private Date updatedAt;
 }

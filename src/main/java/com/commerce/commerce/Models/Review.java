@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Document(collection = "category")
 public class Review {
     @Id
