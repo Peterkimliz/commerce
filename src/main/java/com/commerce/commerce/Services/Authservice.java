@@ -45,6 +45,10 @@ public class Authservice {
         userRepository.save(userModel);
 
         UserDetails userDetails = userDetailsImple.loadUserByUsername(register.getEmail());
+
+         System.out.println("usermodel is"+userDetails);
+
+
         String token = jwtService.generateToken(userDetails);
         Authresponse authresponse = new Authresponse();
         authresponse.setToken(token);

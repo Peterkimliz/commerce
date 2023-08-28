@@ -1,5 +1,6 @@
 package com.commerce.commerce.Security;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserDetailsImple implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserModel> user=userRepository.findByEmail(username);
         if(user.isPresent()){
-            return new User(user.get().getUsername(), user.get().getPassword(), user.get().getAuthorities());
+            return new User(user.get().getEmail(), user.get().getPassword(),new ArrayList<>());
 
         }else{
             throw new UsernameNotFoundException("User not found");
