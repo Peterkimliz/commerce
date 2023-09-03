@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.commerce.commerce.Dtos.CategoryDto;
-import com.commerce.commerce.Dtos.SubcategoryDto;
 import com.commerce.commerce.Services.CategoryService;
 
 @RestController
