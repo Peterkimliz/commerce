@@ -29,7 +29,7 @@ public class WebSecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .requestMatchers("/api/auth/**")
+                .requestMatchers("/api/auth/**","/api/address/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

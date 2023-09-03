@@ -23,6 +23,7 @@ public class JwtService {
 
     private <T> T extractSingleClaim(String token, Function<Claims, T> claimResolver) {
         Claims claims = extractAllClaims(token);
+        System.out.println("claims are"+claims);
         return claimResolver.apply(claims);
     }
 

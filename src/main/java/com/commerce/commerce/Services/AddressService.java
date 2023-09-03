@@ -1,7 +1,9 @@
 package com.commerce.commerce.Services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,23 +12,34 @@ import com.commerce.commerce.Dtos.AddressDto;
 import com.commerce.commerce.Dtos.AddressRequest;
 import com.commerce.commerce.Exceptions.FoundException;
 import com.commerce.commerce.Models.Address;
+import com.commerce.commerce.Models.UserModel;
 import com.commerce.commerce.Repository.AddressRepository;
+import com.commerce.commerce.Repository.UserRepository;
+
+
 
 @Service
 public class AddressService {
 
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired 
+    private UserRepository userRepository;
 
     public AddressRequest createAddress(AddressDto addressDto, String userId) {
-        Optional<Address> foundAddress = addressRepository.findByUserId(userId);
-
+       
+        Optional<UserModel> userFound = userRepository.findById(userId);
+       Optional<Address> foundAddress = addressRepository.findByUserId(userId);
         if (foundAddress.isPresent()) {
             throw new FoundException("You already have an address");
+        }
+        if(!userFound.isPresent()){
+             throw new FoundException("User with id not found");
         }
         Address address = Address.builder().createdAt(new Date(System.currentTimeMillis()))
                 .updatedAt(new Date(System.currentTimeMillis())).city(addressDto.getCity())
                 .country(addressDto.getCountry()).state(addressDto.getState()).postalcode(addressDto.getPostalcode())
+                .userId(userFound.get())
                 .build();
 
         addressRepository.save(address);
@@ -48,6 +61,15 @@ public class AddressService {
         }
         AddressRequest addressRequest = mapToAddressRequest(foundAddress.get());
         return addressRequest;
+
+    }
+    public List<Address> getAllAddressesd() {
+       List<Address> foundAddress = addressRepository.findAll();
+        if (foundAddress.size()==0) {
+          return new ArrayList<>();
+        }
+       
+        return foundAddress;
 
     }
 
