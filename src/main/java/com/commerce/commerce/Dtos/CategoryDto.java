@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class CategoryDto {
     private String id;
     @NotBlank(message = "Enter category name")
