@@ -32,17 +32,16 @@ public class ReviewService {
         if (foundReview.isPresent()) {
             throw new FoundException("You have already reviewed this product");
         }
+        UserModel userModel = userRepository.findById(request.getReviewer()).get();
         Review review = Review.builder()
                 .createdAt(new Date(System.currentTimeMillis()))
                 .updatedAt(new Date(System.currentTimeMillis()))
                 .message(request.getMessage())
                 .rating(request.getRating())
                 .productId(request.getProductId())
-                .reviewer(request.getReviewer())
+                .reviewer(userModel)
                 .build();
         repository.save(review);
-
-        UserModel userModel = userRepository.findById(review.getReviewer()).get();
         ReviewRespose respose = ReviewRespose.builder()
                 .createdAt(review.getCreatedAt())
                 .updatedAt(review.getUpdatedAt())
@@ -57,7 +56,11 @@ public class ReviewService {
     public List<ReviewRespose> getReviewsByProduct(String productId, int pagenumber) {
         PageRequest page = PageRequest.of(pagenumber, 15).withSort(Sort.Direction.DESC, "createdAt");
         Page<Review> allReviews = repository.findByProductId(productId, page);
-        return null;
+        return allReviews.stream()
+                .map(e -> ReviewRespose.builder().createdAt(e.getCreatedAt()).updatedAt(e.getUpdatedAt()).id(e.getId())
+                        .message(e.getMessage()).productId(e.getProductId()).rating(e.getRating())
+                        .reviewer(e.getReviewer()).build())
+                .toList();
     }
 
 }

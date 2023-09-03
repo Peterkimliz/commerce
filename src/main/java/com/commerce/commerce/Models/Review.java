@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import lombok.*;
 
@@ -19,7 +20,8 @@ public class Review {
     private String message;
     private String productId;
     private double rating;
-    private String reviewer;
+    @DocumentReference(lazy = true)
+    private UserModel reviewer;
     private Date createdAt;
     private Date updatedAt;
 

@@ -1,7 +1,5 @@
 package com.commerce.commerce.Dtos;
 
-import java.util.Date;
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
