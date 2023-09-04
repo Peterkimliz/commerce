@@ -50,6 +50,7 @@ public class Authservice {
 
 
         String token = jwtService.generateToken(userDetails);
+           System.out.println("usermodel is"+token);
         Authresponse authresponse = new Authresponse();
         authresponse.setToken(token);
         authresponse.setUser(userModel);

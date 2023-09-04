@@ -33,5 +33,10 @@ private AddressService addressService;
     return new ResponseEntity<List<Address>>(addressService.getAllAddressesd(), HttpStatus.OK);
 
  }   
+@GetMapping("/{userId}")
+ public ResponseEntity<AddressRequest> getAddressByUserId(@PathVariable("userId") String userId){
+    return new ResponseEntity<AddressRequest>(addressService.getAddressByuserId(userId), HttpStatus.OK);
+
+ }   
     
 }

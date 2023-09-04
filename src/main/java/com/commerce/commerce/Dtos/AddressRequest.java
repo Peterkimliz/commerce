@@ -1,5 +1,7 @@
 package com.commerce.commerce.Dtos;
 
+import com.commerce.commerce.Models.UserModel;
+
 import lombok.*;
 
 @Data
@@ -13,5 +15,6 @@ public class AddressRequest {
     private String country;
     private String state;
     private String postalcode;
+    private UserModel user;
 
 }

@@ -29,7 +29,7 @@ public class AddressService {
     public AddressRequest createAddress(AddressDto addressDto, String userId) {
        
         Optional<UserModel> userFound = userRepository.findById(userId);
-       Optional<Address> foundAddress = addressRepository.findByUserId(userId);
+       Optional<Address> foundAddress = addressRepository.findByUserId(userFound.get());
         if (foundAddress.isPresent()) {
             throw new FoundException("You already have an address");
         }
@@ -51,12 +51,14 @@ public class AddressService {
     private AddressRequest mapToAddressRequest(Address address) {
         new AddressRequest();
         return AddressRequest.builder().city(address.getCity()).country(address.getCountry()).id(address.getId())
-                .state(address.getState()).postalcode(address.getPostalcode()).build();
+                .state(address.getState()).postalcode(address.getPostalcode()).user(address.getUserId()).build();
     }
 
     public AddressRequest getAddressByuserId(String userId) {
-        Optional<Address> foundAddress = addressRepository.findByUserId(userId);
-        if (foundAddress.isPresent()) {
+          Optional<UserModel> userFound = userRepository.findById(userId);
+          Optional<Address> foundAddress = addressRepository.findByUserId(userFound.get());
+
+        if (!foundAddress.isPresent()) {
             throw new FoundException("Address not found");
         }
         AddressRequest addressRequest = mapToAddressRequest(foundAddress.get());

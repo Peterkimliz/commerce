@@ -4,7 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import com.commerce.commerce.Models.Address;
+import com.commerce.commerce.Models.UserModel;
 
 public interface AddressRepository extends MongoRepository<Address, String> {
-    Optional<Address> findByUserId(String userId);
+    Optional<Address> findByUserId(UserModel userId);
 }
