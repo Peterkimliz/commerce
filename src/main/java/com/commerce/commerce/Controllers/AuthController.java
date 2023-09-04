@@ -19,9 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
 private final Authservice authservice;
-
- @PostMapping("/signup")
- public ResponseEntity<Authresponse> createUser(@RequestBody  @Validated  Register register){
+ @PostMapping("signup")
+public ResponseEntity<Authresponse> createUser(@RequestBody  @Validated  Register register){
     return new ResponseEntity<Authresponse>(authservice.createUser(register), HttpStatus.CREATED);
  }   
     
